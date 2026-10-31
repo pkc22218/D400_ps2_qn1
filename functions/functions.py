@@ -1,5 +1,5 @@
 import math
-from re import L
+import random
 
 def sin(x):
     sin_x = 0.0
@@ -33,7 +33,7 @@ def recaman(N:int):
             recaman.append(previous + n)
     return recaman 
 
-def common_number(N:int):
+def common_number(N:int): # create a list of the numbers which appear in both prime and recaman when they are both N items long.
     common = []
     list1 = primes(N)
     list2 = recaman(N)
@@ -44,3 +44,19 @@ def common_number(N:int):
     return common
 
 
+def factor_pairs(n):
+    factor_pairs = [
+        (a, n // a)
+        for a in range(1, int(n ** 0.5) + 1) #check the number till square root of n to prevent repetition
+        if n % a == 0
+    ]
+
+    return factor_pairs
+
+def random_walk(n): #n is the steps
+    steps = [
+        random.randint(0 , 1) * 2 - 1  #avoid 0
+        for n in range (1, n + 1) 
+    ]
+    walk = [sum(steps[:i+1]) for i in range(n)]
+    return walk
