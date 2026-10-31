@@ -25,7 +25,7 @@ def recaman(N:int):
     if not isinstance(N, int) or N < 1:
         raise ValueError("N must be an integer >= 1")
     recaman = [1]
-    for n in range (2,N):
+    for n in range (2, N + 1):
         previous = recaman[-1]
         if previous > n and previous - n not in recaman:
             recaman.append(previous - n)
@@ -34,9 +34,21 @@ def recaman(N:int):
     return recaman 
 
 def common_number(N:int): # create a list of the numbers which appear in both prime and recaman when they are both N items long.
-    common = []
-    list1 = primes(N)
+    if not isinstance(N, int) or N < 1:
+        raise ValueError("N must be an integer >= 1")
+    
+    limit = 2
+    list1 = primes(limit)
+
+    while len(list1) < N:
+        limit *= 2
+        list1 = primes(limit)
+
+    list1 = list1[:N]
     list2 = recaman(N)
+
+    common = []
+  
     for number in list1:
         if number in list2 and number not in common:
             common.append(number)
@@ -53,10 +65,20 @@ def factor_pairs(n):
 
     return factor_pairs
 
-def random_walk(n): #n is the steps
-    steps = [
-        random.randint(0 , 1) * 2 - 1  #avoid 0
-        for n in range (1, n + 1) 
-    ]
-    walk = [sum(steps[:i+1]) for i in range(n)]
+def random_walk(n): 
+    steps = []
+    position = 0
+    while abs(position) < 10:
+        position += random.randint(0 , 1) * 2 - 1  #avoid 0
+        for n in range (1, n + 1):
+            walk = [sum(steps[:i+1]) for i in range(n)]
+    yield walk
+
+def random_walk(n):
+    position = 0
+    walk = []
+    while abs(position) < n:
+        position += random.randint(0, 1) * 2 - 1
+        walk.append(position)
+        yield position
     return walk
