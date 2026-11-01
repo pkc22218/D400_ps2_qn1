@@ -13,7 +13,7 @@ def primes(N:int):
     primes = []
     for n in range(2, N):
         is_prime = True
-        for d in range(2, n):
+        for d in range(2, n + 1): ## SZ comment: range excludes its end, adding +1 will ensure n is included.
             if n % d == 0:
                 is_prime = False
                 break
@@ -24,7 +24,7 @@ def primes(N:int):
 def recaman(N:int):
     if not isinstance(N, int) or N < 1:
         raise ValueError("N must be an integer >= 1")
-    recaman = [1]
+    recaman = [0, 1] #SZ comment: 0 is also part of the recaman
     for n in range (2, N + 1):
         previous = recaman[-1]
         if previous > n and previous - n not in recaman:
@@ -52,6 +52,8 @@ def common_number(N:int): # create a list of the numbers which appear in both pr
     for number in list1:
         if number in list2 and number not in common:
             common.append(number)
+    #SZ comment: consider replacing the for loop with sorted function which reduces the complexity:
+    common = sorted(set(list1) & set(list2)) # returns the sorted intersection of list1 and list2
 
     return common
 
@@ -65,16 +67,15 @@ def factor_pairs(n):
 
     return factor_pairs
 
-def random_walk(n): 
-    steps = []
+def random_walk(): # SZ comment: the random walk should not take in any parameters as number of steps to reach abs(10) is not fixed
     position = 0
     while abs(position) < 10:
         position += random.randint(0 , 1) * 2 - 1  #avoid 0
-        for n in range (1, n + 1):
-            walk = [sum(steps[:i+1]) for i in range(n)]
-    yield walk
+        yield position
 
-def random_walk(n):
+list(random_walk()) # return the steps in a list
+
+def random_walk(n): #SZ comment: as above
     position = 0
     walk = []
     while abs(position) < n:
