@@ -1,6 +1,6 @@
 #test script to illustrate all results for question 1
 
-from functions import random_walk, sin, primes,recaman, common_number, factor_pairs
+from D400_ps2_qn1 import random_walk, sin, primes,recaman, common_number, factor_pairs
 
 print(sin(0.1))
 print(recaman(10))
