@@ -13,7 +13,9 @@ def primes(N:int):
     primes = []
     for n in range(2, N):
         is_prime = True
-        for d in range(2, n + 1): ## SZ comment: range excludes its end, adding +1 will ensure n is included.
+        for d in range(2, int(n**0.5) + 1): ## SZ comment: range excludes its end, adding +1 will ensure n is included. # YT comment: Check divisors up to the square root of n.
+# The +1 ensures the integer square root is included,
+# since range() excludes its upper bound.
             if n % d == 0:
                 is_prime = False
                 break
